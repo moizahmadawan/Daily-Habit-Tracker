@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Daily Habit Tracker"
+description = "A small personal habit tracker for adding daily habits, marking them complete, and seeing today's progress. Built with React and JavaScript, with local browser persistence."
+version = "1.0.0"
+id = "artifacts/daily-habit-tracker"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18635
+
+[services.development]
+run = "pnpm --filter @workspace/daily-habit-tracker run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/daily-habit-tracker", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/daily-habit-tracker/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18635"
+BASE_PATH = "/"
